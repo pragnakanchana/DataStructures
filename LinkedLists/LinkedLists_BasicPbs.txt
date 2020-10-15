@@ -1,0 +1,318 @@
+1. Print Middle Element..
+
+Approach : Maintaing 2 pointers slow and fast , where slow moves at x speed and fast moves at 2x speed. So by the time fast reaches end of linkedlist , slow will be at middle element.
+
+struct* node printMiddle(struct* node start){
+	
+	struct* node slow = start;
+	struct* node fast = start;
+	
+	while(fast -> link != null){
+		slow = slow-> link;
+		fast = fast ->link -> link;
+	}
+	
+	cout << slow -> data << endl;
+	
+	return start;
+}
+
+
+# even : ( n / 2 ) + 1
+# odd : exact middle - int( n / 2 ) + 1
+
+=================================================
+
+4. Delete Middle
+
+Approach : Finding the middle element and traversing till the previous element of the middle element and removing it.
+
+struct* node deleteMiddle(struct* node start){
+	
+	struct* node slow = start;
+	struct* node fast = start;
+	
+	while(fast -> link != null){
+		slow = slow-> link;
+		fast = fast ->link -> link;
+	}
+
+	
+	struct* node p = start;
+	while(p -> link ! = slow){
+		p = p -> link;
+	}
+	struct* node temp = slow;
+	p -> link  =  p -> link -> link
+	free(temp)
+	
+	return start;
+}
+
+=================================================
+5. Remove Duplicates
+
+# using extra space - creating new linkedlist
+
+struct* node removeDuplicates( struct* node start){
+	struct* node p = start;
+	struct* node start2 = null;
+	
+	struct* node p2 = start2;
+	while(p -> link ! = null){
+		if(p2 -> data != p -> data ){
+			struct* node temp = p ;
+			if(p2  == null){
+				p2 = temp;
+				start2 = p2;
+			}
+			else{
+				p2 -> link = temp;
+				p2 = p2 -> link;
+			}
+			free(temp);
+		}
+		p = p -> link;
+	}
+}
+
+====================================================
+6. Add One
+
+Approach : reversing the linkedlist add 1 to the head, if it is 9 it is made to zero and carry 1 is maintained in a variable. Performing the same untill carry is 0 .
+In case if all the nodes having 9 , making all the nodes as zero and add a new node at the end of linkedlist to store the carry. And Finally, Reversing the entire linkedlist befor retruning.
+	
+public static Node reverse(Node head){
+        Node prev = null; 
+        Node current = head; 
+        Node next = null; 
+        while (current != null) { 
+            next = current.next; 
+            current.next = prev; 
+            prev = current; 
+            current = next; 
+        } 
+        head = prev; 
+        return head;
+        
+        
+        
+    }
+    
+    public static Node addOne(Node head) 
+    { 
+        Node rev_start = reverse(head);
+	    Node p = rev_start;
+
+	    int carry = 0;
+	    while( p.next != null) {
+    		if(p.data == 9){
+			    p.data = 0;
+			    carry = 1;
+			    p = p.next;
+		    }   
+		    else{
+			    p.data += 1;
+			    carry = 0;
+			    break;
+		    }
+	    }
+
+    	if(p.next == null && carry == 1){
+	    	Node temp = new Node(1);
+		    p.next = temp;
+	    }
+
+	       return reverse(rev_start);
+
+    }
+
+=============================================================
+8. Detect Loop
+
+Approach : Maintaing 2 pointers slow and fast , where slow moves at x speed and fast moves at 2x speed. If there is a loop slow and fast will overlapp at some point of time , If not slow and fast pointer reaches the end.
+
+bool detectLoop(struct node *start){
+	
+	struct* node slow = start;
+	struct* node fast = start -> link;
+
+	while(slow != fast && slow -> link != null && fast -> link ! = null){
+		slow = slow-> link;
+		fast = fast ->link -> link;
+		if(slow == fast){
+			return True;
+		}		
+	}
+	
+	if(slow -> link == null && fast -> link == null){
+		return False;
+	}
+	
+}
+
+=============================================================
+9. Remove Loop 
+
+Approach : Detecting the loop and storing the slow pointer in another pointer and thereby counting no of nodes in the cycle. Then, Finding the start of cycle and and traversing to the end of cycle to break the end link which makes it cyclic.
+
+
+struct node* removeCycle(struct node* start){
+	
+	struct* node slow = start;
+	struct* node fast = start ;
+	struct* node ptr1 = null;
+
+	while(slow != fast && slow -> link != null && fast -> link ! = null){
+		slow = slow-> link;
+		fast = fast ->link -> link;
+		if(slow == fast){
+			ptr1 = slow;
+			break;
+		}		
+	}
+	
+	// count no of nodes in loop
+	
+	struct node* ptr2 = ptr1;
+	int k = 1;
+	while(ptr1 -> link != ptr2){
+		ptr1 = ptr1 -> link;
+		k++;
+	}
+
+	ptr1 = head;
+	ptr2 = head;
+	
+	for(int i = 0 ; i < k ; i++){
+		ptr1 = ptr1 -> link;
+	}
+	
+	while(ptr1  != ptr2){
+		ptr1 = ptr1 -> link;
+		ptr2 = ptr2 -> link;
+	}
+
+	while( ptr1 -> link != ptr2){
+		ptr1 = ptr1 -> link;
+	}
+
+	ptr1 -> link = null;
+}
+=========================================================
+
+10. Remove nth node from end
+
+# assuming the linkedlist has minimum of n+1 nodes
+
+Approach : maintaing main and reference pointers. Firstly, traversing the reference pointer to the nth node from start and then moving both the main and refernce pointers at same pace. (They move by havin a n nodes between them) . So, by the time reference reanches end, main will be pointing to nth node from end.
+
+void nthNodeFromEnd(struct* node start){
+	struct* node p = start;
+	c = 0;
+	while(c <= n){
+		p = p - > link;
+		n++;
+	}
+	
+	struct* node main = start;
+	while(p -> link != null){
+		main = main -> link;
+		p = p -> link;
+	}
+	
+	cout << main -> data << endl;
+}
+
+==============================================================
+11. Check If a linkedList is Palindrome or not
+
+Approach : Finding the middle element and then breakin the list into two parts , reversing the secong list and comparing both the lists untill it reaches end.
+
+bool ispalindrome(struct node* start){
+
+	struct* node p = start;
+	struct* node p2 = null;
+	struct* node slow = start;
+	struct* node fast = start;
+	
+	while(fast -> link != null){
+		slow = slow-> link;
+		fast = fast ->link -> link;
+	}
+	
+	p2 = slow -> link;
+	slow -> link = null;
+	
+	rev_start = reverse(p2);
+	
+	while(p1 -> link != null && rev_start -> link != null){
+		if(p1 -> data != rev_start -> data){
+			return False;
+		}
+		p1 = p1 -> link;
+		rev_start = rev_start -> link;
+	}
+
+	
+	return True;
+}
+===============================================================
+
+13. Delect Last Occurence of number
+
+Approach :Traversing  throuh the list , Maintaining a pointer which points to the node containing the given value. every time the value is repeated the pointer is also updtaed.
+struct node* delLastOccurence(struct node* start, int k){
+
+	struct node* p = start;
+	struct node* temp = null;
+	while(p -> link != null){
+		if(p -> data == k)
+			temp = p;
+		p = p -> link;
+	}
+	
+	if(temp){
+		struct node* x = temp -> link;
+		temp -> data = x -> data;
+		temp -> link = x -> link;
+		free(x);
+		
+	}
+	
+}
+
+===============================================================
+14. Rotate Linkedlist
+
+# Rotating by k times
+
+Approach : traversing the linkedlist upp to k elements, breakin the linkedlist into two parts and linking the first part to the end of second part.
+
+struct node* rotate(struct node *start , int k){
+
+	struct* node p = start;
+	struct* node start2 = start;
+
+	while(k--){
+		p = p -> link;
+	}
+	start = p -> link;
+	p -> link = null;
+	p = start;
+	while(p -> link != null){
+		p = p -> link;
+	}
+	
+	p -> link = start2;
+}
+
+==============================================================
+
+American Express Training Program Details:
+
+session 1 25 - 09 - 2020    09:00 - 10.30hrs   Basics of Data Structures, Applications of Data Structures, Time Complexities, Arrays
+session 2 27 - 09 - 2020    09:00 - 11.00hrs   Arrays and LinkedLists Basics
+session 3 27 - 09 - 2020    11:30 - 12:45hrs   LinkedLists   
+session 4 02 - 10 - 2020    08:00 - 09:30hrs   Stacks and Queues
+session 5 04 - 10 - 2020    09:00 - 11:00hrs   Trees
