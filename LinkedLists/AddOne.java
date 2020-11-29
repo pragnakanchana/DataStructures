@@ -18,10 +18,7 @@ class Sol
             current = next; 
         } 
         head = prev; 
-        return head;
-        
-        
-        
+        return head;     
     }
     
     
@@ -33,18 +30,18 @@ class Sol
         if(head == null){
             return head;
         }
-	    int carry = 0;
-	    if(p.next == null){
-	        if(p.data < 9)
-	        p.data++;
-	        else{
-	            p.data = 0;
-	    	Node temp = new Node(1);
-		    p.next = temp;
+	int carry = 0;
+	if(p.next == null){
+	   if(p.data < 9)
+	      	p.data++;
+	   else{
+	    p.data = 0;
+	    Node temp = new Node(1);
+	    p.next = temp;
     	        
-	        }
-	    }
-	    else{
+	   }
+	}
+	else{
 	    while( p.next != null) {
     		if(p.data == 9){
 			    p.data = 0;
@@ -56,18 +53,17 @@ class Sol
 			    break;
 		    }
 	    }
-    	if(p.next == null && carry == 1){
-    	    if(p.data < 9){
-    	        p.data++;
-    	    }
-    	    else{
-    	    p.data = 0;
-	    	Node temp = new Node(1);
-		    p.next = temp;
-    	        
-    	    }
+    	    if(p.next == null && carry == 1){
+    	    	if(p.data < 9){
+    	        	p.data++;
+    	    	}
+    	    	else{
+    	    		p.data = 0;
+	    		Node temp = new Node(1);
+		    	p.next = temp;
+    	    	}
 	    }
         }
-	   return reverse(rev_start);
+	return reverse(rev_start);
     }
 }
