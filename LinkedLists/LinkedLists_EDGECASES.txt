@@ -2,3 +2,5 @@
 	Edge Cases : 1, 9, 99 , 49, 499 
 
 ** 
+
+** for comparing linkedlist prob, conditions if 2 linkedlists are of different lengths
