@@ -1,3 +1,20 @@
+//APPROCH-1 : USING HASHSET
+public boolean hasCycle(ListNode head) {
+    Set<ListNode> nodesSeen = new HashSet<>();
+    while (head != null) {
+        if (nodesSeen.contains(head)) {
+            return true;
+        } else {
+            nodesSeen.add(head);
+        }
+        head = head.next;
+    }
+    return false;
+}
+
+
+//APPROCH-2 : USING @ POINTERS
+
 bool hasCycle(ListNode *head) {
         ListNode* slow = head;
         ListNode* fast = head;
