@@ -1,0 +1,30 @@
+/*
+
+Rference link : https://www.youtube.com/watch?v=jiLloHVmLDc&feature=emb_logo
+*/
+public class Solution {
+    public ListNode swapPairs(ListNode A) {
+        if(A == null || A.next == null){
+            return A;
+        }
+        ListNode newhead = A.next;
+        ListNode p = A;
+        while(true){
+            ListNode q = p.next;
+            ListNode temp = q.next;
+            q.next = p;
+            if(temp == null ){
+                p.next = null;
+                break;
+            }
+            if(temp.next == null){
+                p.next = temp;
+                break;
+            }
+            p.next = temp.next;
+            p = temp;
+            
+        }
+        return newhead;
+    }
+}
