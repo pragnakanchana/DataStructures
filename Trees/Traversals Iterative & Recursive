@@ -1,0 +1,88 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Node {
+    int data;
+    struct Node *left, *right;
+};
+
+Node* newNode(int x){
+    Node* temp = new Node;
+    temp->data = x;
+    temp->left = NULL;
+    temp->right = NULL;
+    return temp;
+}
+Node* insert(Node* root, int x){
+    if(root == NULL)
+        return newNode(x);
+    else if(root->data > x)
+        root->left =  insert(root->left,x);
+    else
+        root->right =  insert(root->right,x);
+    return root;
+}
+void inorder(Node* root){
+    if(root ==NULL){
+        return ;
+    }
+    inorder(root->left);
+    cout << root->data << " ";
+    inorder(root->right);
+}
+void preorder(Node* root){
+    if(root ==NULL){
+        return ;
+    }
+    cout << root->data << " ";
+    preorder(root->left);
+    preorder(root->right);
+}
+void postorder(Node* root){
+    if(root ==NULL){
+        return ;
+    }
+    postorder(root->left);
+    postorder(root->right);
+    cout << root->data << " ";
+}
+
+void preorderIterative(Node* root){
+    stack<Node*> s;
+    s.push(root);
+    while(!s.empty()){
+        Node* x = s.top();
+        s.pop();
+        cout << x->data << " ";
+        if(x->right != NULL){
+            s.push(x->right);
+        }
+        if(x->left != NULL){
+            s.push(x->left);
+        }
+    }
+    
+}
+
+
+int main() { 
+   
+        int n;
+        cin >> n;
+        Node* root = NULL;
+        for(int i = 0 ; i < n ; i++){
+            int x;
+            cin >> x;
+            root = insert(root, x);
+        }
+        
+        inorder(root);
+        cout << endl;
+        preorderIterative(root);
+    return 0;
+}
