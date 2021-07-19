@@ -68,9 +68,30 @@ void preorderIterative(Node* root){
     }
     
 }
+void postorderIterative(Node* root){
+    stack<Node*> s1,s2;
+    s1.push(root);
+    while(!s1.empty()){
+        Node* x = s1.top();
+        s1.pop();
+        s2.push(x);
+        
+        if(x->left != NULL){
+            s1.push(x->left);
+        }
+        if(x->right != NULL){
+            s1.push(x->right);
+        }
+    }
+    while(!s2.empty()){
+        cout << s2.top()->data << " ";
+        s2.pop();
+    }
+    
+}
 
-
-int main() { 
+int main() {
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */   
    
         int n;
         cin >> n;
@@ -81,8 +102,8 @@ int main() {
             root = insert(root, x);
         }
         
-        inorder(root);
+        postorder(root);
         cout << endl;
-        preorderIterative(root);
+        postorderIterative(root);
     return 0;
 }
