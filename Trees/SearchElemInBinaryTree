@@ -133,7 +133,6 @@ bool searchIter(Node* root, int n){
     return false;
 }
 int main() {
-    /* Enter your code here. Read input from STDIN. Print output to STDOUT */   
    
         int n;
         cin >> n;
