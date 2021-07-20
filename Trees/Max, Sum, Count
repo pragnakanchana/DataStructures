@@ -1,0 +1,80 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Node {
+    int data;
+    struct Node *left, *right;
+};
+
+Node* newNode(int x){
+    Node* temp = new Node;
+    temp->data = x;
+    temp->left = NULL;
+    temp->right = NULL;
+    return temp;
+}
+Node* insert(Node* root, int x){
+    if(root == NULL)
+        return newNode(x);
+    else if(root->data > x)
+        root->left =  insert(root->left,x);
+    else
+        root->right =  insert(root->right,x);
+    return root;
+}
+int maxi(Node* root){
+    if(root == NULL){
+        return INT_MIN;
+    }
+    return max(max(maxi(root->left) , maxi(root->right)), root->data);
+}
+int sum (Node* root){
+    if(root == NULL){
+        return 0;
+    }
+    return sum(root->left)+sum(root->right)+root->data;
+}
+
+int count(Node* root){
+    if(root == NULL){
+        return 0;
+    }
+    return count(root->left)+count(root->right)+1;
+}
+void BFS(Node* root){
+    queue<Node*> q;
+    q.push(root);
+    q.push(NULL);
+    while(q.size() > 1){
+        Node* x = q.front();
+        q.pop();
+        if(x == NULL){
+            q.push(NULL);
+            cout << endl;
+        }
+        else{
+            cout << x->data << " ";
+            if(x->left != NULL) q.push(x->left);
+            if(x->right != NULL) q.push(x->right);
+        }
+    }
+    
+}
+int main() { 
+   
+        int n;
+        cin >> n;
+        Node* root = NULL;
+        for(int i = 0 ; i < n ; i++){
+            int x;
+            cin >> x;
+            root = insert(root, x);
+        }
+        cout << count(root);
+    return 0;
+}
