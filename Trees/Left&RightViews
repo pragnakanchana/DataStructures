@@ -1,0 +1,87 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Node {
+    int data;
+    struct Node *left, *right;
+};
+
+Node* newNode(int x){
+    Node* temp = new Node;
+    temp->data = x;
+    temp->left = NULL;
+    temp->right = NULL;
+    return temp;
+}
+Node* insert(Node* root, int x){
+    if(root == NULL)
+        return newNode(x);
+    else if(root->data > x)
+        root->left =  insert(root->left,x);
+    else
+        root->right =  insert(root->right,x);
+    return root;
+}
+void BFS(Node* root){
+    queue<Node*> q;
+    q.push(root);
+    q.push(NULL);
+    while(q.size() > 1){
+        Node* x = q.front();
+        q.pop();
+        if(x == NULL){
+            q.push(NULL);
+            cout << endl;
+        }
+        else{
+            cout << x->data << " ";
+            if(x->left != NULL) q.push(x->left);
+            if(x->right != NULL) q.push(x->right);
+        }
+    }
+    
+}
+int curr = 0;
+void rightView(Node* root, int next){
+    if(root == NULL) return ;
+    if(curr < next){
+        curr = next;
+        cout << root->data << " ";
+    }
+    rightView(root->right,  next+1);
+    rightView(root->left,  next+1);
+}
+int curl = 0;
+void leftView(Node* root, int next){
+    if(root == NULL) return ;
+    if(curl < next){
+        curl = next;
+        cout << root->data << " ";
+    }
+    leftView(root->left, next+1);
+    leftView(root->right, next+1);
+}
+int main() {  
+   
+        int n;
+        cin >> n;
+        Node* root = NULL;
+        for(int i = 0 ; i < n ; i++){
+            int x;
+            cin >> x;
+            root = insert(root, x);
+        }
+        
+        BFS(root);
+        cout << endl << "RightView" << endl;
+        rightView(root,1);
+        
+        cout << endl << "LeftView" << endl;
+        leftView(root,1);
+    return 0;
+}
