@@ -1,0 +1,64 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+#include<bits/stdc++.h>
+using namespace std;
+
+struct Node{
+    int data;
+    struct Node *left,*right;
+};
+Node* newNode(int x){
+    Node* nn = new Node;
+    nn->data = x;
+    nn->left = nn->right = NULL;
+    return nn;
+}
+
+Node* insert(Node* root,int x){
+    if(root == NULL){
+        return newNode(x);
+    }
+    else if(root->data < x){
+        root->right = insert(root->right,x);
+    }
+    else{
+        root->left = insert(root->left,x);
+    }
+    return root;
+}
+int height(Node* root){
+    if(root == NULL) return 0;
+    return max(height(root->left),height(root->right))+1;
+}
+bool isBalanced(Node* root){
+    if(root == NULL){
+        return true;
+    }
+    int lh = height(root->left);
+    int rh = height(root->right);
+    if(abs(lh-rh) <=1 && isBalanced(root->left) && isBalanced(root->right)){
+        return true;
+    }
+    return false;
+}
+int main() {
+    int t;
+    cin >> t;
+    while(t--){
+        int n;
+        cin >> n;
+        Node* root = NULL;
+        for(int i = 0 ; i < n; i++){
+            int x;
+            cin >> x;
+            root = insert(root,x);
+        }
+        isBalanced(root) ? cout << "Yes" : cout << "No";
+        
+        cout << endl;
+    }
+    return 0;
+}
