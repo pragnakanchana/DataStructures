@@ -1,1 +1,42 @@
-,..
+
+#include <iostream>
+#include<bits/stdc++.h>
+using namespace std;
+
+int st[10000];
+int top = -1;
+
+void push(int x){
+    top++;
+    st[top]= x;
+}
+
+int pop()
+{
+    int x = st[top];
+    top--;
+}
+bool empty(){
+    return top == -1;
+}
+void display(){
+    for(int i = top ; i >= 0 ; i--)
+        cout << st[i] << " ";
+    cout << endl;
+}
+int main()
+{
+    push(20);
+    display();
+    push(10);
+    display();
+    pop();
+    display();
+    cout << "Empty ? " << empty();
+    pop();
+    display();
+    cout << "Empty ? " << empty();
+    display();
+
+    return 0;
+}
