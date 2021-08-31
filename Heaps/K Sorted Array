@@ -1,0 +1,30 @@
+//https://www.geeksforgeeks.org/nearly-sorted-algorithm/
+#include <iostream>
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    
+    int a[7] = {6, 5, 3, 2, 8, 10, 9};
+    int k = 3;
+    int n = 7;
+    int j = 0; // to maintain index of sorted ar;
+    int hsize = (k==n)?k:k+1;
+    priority_queue<int,vector<int>,greater<int>> minh;
+    for(int i = 0 ; i < n ; i++){
+        minh.push(a[i]);
+        if(minh.size() > hsize){
+            a[j++] = minh.top();
+            minh.pop();
+        }
+    }
+    while(!minh.empty()){
+        a[j++] = minh.top();
+        minh.pop();
+    }
+    for(int i = 0 ; i < j ; i++){
+        cout << a[i] << " ";
+    }
+    return 0;
+}
