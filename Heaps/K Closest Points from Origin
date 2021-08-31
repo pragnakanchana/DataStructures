@@ -1,0 +1,24 @@
+//https://www.geeksforgeeks.org/find-k-closest-points-to-the-origin/
+#include <iostream>
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    int n = 3;
+    int a[n][2] = {{3, 3}, {5, -1}, {-2, 4}};
+    int k = 2;
+    priority_queue<pair<int,int>> maxh;
+    for(int i = 0 ; i < n ; i++){
+        int d = (a[i][0]*a[i][0]) + (a[i][1]*a[i][1]);
+        maxh.push({d,i});
+        if(maxh.size() > k){
+            maxh.pop();
+        }
+    }
+    while(!maxh.empty()){
+        cout << a[maxh.top().second][0] << " " << a[maxh.top().second][1]<<endl;
+        maxh.pop();
+    }
+    return 0;
+}
