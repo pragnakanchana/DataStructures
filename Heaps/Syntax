@@ -1,0 +1,31 @@
+
+#include <iostream>
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    cout << "Max Heap : " << endl;
+    priority_queue<int> maxh;
+    maxh.push(2);
+    maxh.push(4);
+    maxh.push(1);
+    maxh.push(0);
+    maxh.push(5);
+    while(maxh.size() > 0){
+        cout << maxh.top() << " ";
+        maxh.pop();
+    }
+    cout << endl << "Min Heap : " << endl;
+    priority_queue<int,vector<int>,greater<int>> minh;
+    minh.push(2);
+    minh.push(4);
+    minh.push(1);
+    minh.push(0);
+    minh.push(5);
+    while(minh.size() > 0){
+        cout << minh.top() << " ";
+        minh.pop();
+    }
+    return 0;
+}
