@@ -1,0 +1,57 @@
+#include <iostream>
+#include<bits/stdc++.h>
+using namespace std;
+vector<int> adj[6];
+void bfs(int nv, int s){
+    queue<int> q ;
+    q.push(s);
+    bool vis[nv];
+    for(int i = 0 ; i < nv ; i++){
+        vis[i] = false;
+    }
+    vector<int> res;
+    vis[s] = true;
+    while(!q.empty()){
+        int x = q.front();
+        cout << x << " ";
+        q.pop();
+        res.push_back(x);
+        for(int e : adj[x]){
+            if(!vis[e]){
+                q.push(e);
+                vis[e] = true;
+            }
+        }
+    }
+    cout << endl;
+    /*for(int i = 0 ; i < res.size(); i++){
+        cout << res[i] << " ";
+    }*/
+}
+int visited[4] = {0};
+void dfs(int x){
+    cout << x << " ";
+    visited[x] = 1;
+    for(int e: adj[x]){
+        if(!visited[e]){
+            dfs(e);
+        }
+    }
+}
+
+int main()
+{
+    int nv = 4;
+    adj[0].push_back(1);
+    adj[0].push_back(2);
+    adj[1].push_back(2);
+    adj[2].push_back(0);
+    adj[2].push_back(3);
+    adj[3].push_back(3);
+    
+    int s = 2;
+    bfs(4,s);
+    dfs(s);
+    return 0;
+}
+
